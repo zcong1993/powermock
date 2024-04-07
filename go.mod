@@ -11,7 +11,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.4.0
 	github.com/hashicorp/go-multierror v1.0.0
 	github.com/jhump/protoreflect v1.8.2
-	github.com/json-iterator/go v1.1.10
+	github.com/json-iterator/go v1.1.12
 	github.com/prometheus/client_golang v1.10.0
 	github.com/rs/zerolog v1.22.0
 	github.com/sirupsen/logrus v1.8.1
