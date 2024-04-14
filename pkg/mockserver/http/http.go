@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -111,6 +112,7 @@ func (s *MockServer) ServeHTTP(w http.ResponseWriter, request *http.Request) {
 		Path:     request.URL.Path,
 		Header:   getHeadersFromHttpHeaders(request.Header),
 		Body:     interact.NewBytesMessage(body),
+		Query:    getQueryFromHttpURLQuery(request.URL.Query()),
 	})
 	if err != nil {
 		sendError(w, util.GetHTTPCodeFromError(err), err)
@@ -157,4 +159,15 @@ func getHeadersFromHttpHeaders(input http.Header) map[string]string {
 		}
 	}
 	return headers
+}
+
+// getQueryFromHttpQuery is used to get map[string]string from http.URL.Query
+func getQueryFromHttpURLQuery(input url.Values) map[string]string {
+	query := map[string]string{}
+	for key, values := range input {
+		if len(values) > 0 {
+			query[key] = values[0]
+		}
+	}
+	return query
 }
