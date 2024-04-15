@@ -46,6 +46,7 @@ type Request struct {
 	Path     string            `json:"path"`
 	Header   map[string]string `json:"header"`
 	Body     Message           `json:"body"`
+	Query    map[string]string `json:"query"`
 }
 
 // Response defines the response structure
