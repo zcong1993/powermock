@@ -26,10 +26,7 @@ import (
 
 // MatchRequestByJavascript is used to match mock case by javascript
 func MatchRequestByJavascript(ctx context.Context, request *interact.Request, script string) (bool, error) {
-	vm, err := v8go.NewContext()
-	if err != nil {
-		return false, err
-	}
+	vm := v8go.NewContext()
 	requestRaw, err := jsoniter.MarshalToString(request)
 	if err != nil {
 		return false, err
@@ -47,10 +44,7 @@ func MatchRequestByJavascript(ctx context.Context, request *interact.Request, sc
 
 // MockResponseByJavascript is used to mock response by javascript
 func MockResponseByJavascript(ctx context.Context, request *interact.Request, response *interact.Response, script string) error {
-	vm, err := v8go.NewContext()
-	if err != nil {
-		return err
-	}
+	vm := v8go.NewContext()
 	requestRaw, err := jsoniter.MarshalToString(request)
 	if err != nil {
 		return err
@@ -87,7 +81,7 @@ func RunScript(ctx context.Context, v8Context *v8go.Context, script string) (*v8
 		valCh <- val
 	}()
 	var terminateFunc = func() error {
-		vm, _ := v8Context.Isolate()
+		vm := v8Context.Isolate()
 		vm.TerminateExecution()
 		return <-errCh
 	}
